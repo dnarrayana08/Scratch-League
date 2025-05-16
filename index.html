@@ -489,5 +489,35 @@
 
     <!-- Optional: Script for more complex animations or interactions -->
     <!-- <script src="script.js"></script> -->
+     <script>
+document.querySelector(".registration-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const data = new URLSearchParams();
+  data.append("fullName", form.fullName.value);
+  data.append("age", form.age.value);
+  data.append("icNumber", form.icNumber.value);
+  data.append("schoolName", form.schoolName.value);
+  data.append("email", form.email.value);
+  data.append("phone", form.phone.value);
+  data.append("category", form.category.value);
+  data.append("agree", form.agree.checked ? "Yes" : "No");
+
+  fetch("https://script.google.com/macros/s/AKfycbxrfCJ02UWnQXg5b043xhgQZU8RZlo3vJU__1IAq8ahRVDpE4bk_Y925rES0dD56pjM/exec", {
+    method: "POST",
+    body: data
+  })
+  .then(res => res.text())
+  .then(res => {
+    alert("🎉 Registration submitted successfully!");
+    form.reset();
+  })
+  .catch(err => {
+    console.error("Fetch error:", err);
+    alert("❌ Submission failed. Please try again.");
+  });
+});
+</script>
   </body>
 </html>
